@@ -1,0 +1,88 @@
+project_name: freeimperia-ai
+description: >
+  A knowledge extraction and relationship graph system for a homebrew 2E AD&D wiki, hosted at www.freeimperia.com. 
+  It parses DocuWiki pages into structured relationships and interactive knowledge graphs.
+
+folders:
+  config:
+    description: Configuration and metadata for tool orchestration.
+    files:
+      config.py:
+        purpose: Central configuration settings (paths, filenames, mode switches).
+      project_structure.yaml:
+        purpose: Describes tools, their roles, input/output, and how they interconnect.
+
+  tools:
+    description: Core logic and interface scripts for relationship extraction, tagging, clustering, and graph generation.
+    files:
+      apply_relationship_patterns.py:
+        purpose: Applies YAML-defined patterns to parsed wiki text to extract relationships.
+        input: output/wiki_pages.json, config/relationships.yaml
+        output: output/relationships.jsonl, unmatched_phrases.txt
+
+      cleanup_freeimperia.py:
+        purpose: Moves unused or outdated files into a backup directory for project hygiene.
+        input: Entire repo folder
+        output: backup_unused/
+
+      clustered_matcher_ui_v3.py:
+        purpose: Interactive UI for clustering similar relationship phrases and reviewing semantic matches.
+        input: output/unmatched_phrases.txt
+        output: tagged/relationships_tagged.jsonl
+
+      jsonl_to_graph.py:
+        purpose: Converts relationship data into network graph formats for visual tools (e.g., Cytoscape).
+        input: output/relationships.jsonl
+        output: output/graph_data.json
+
+      matcher_ui_v2.py:
+        purpose: Deprecated/legacy tag UI for labeling unmatched relationships.
+        status: Superseded by matcher_ui_v3.py
+
+      matcher_ui_v3.py:
+        purpose: UI for manual matching and tagging of extracted phrases, especially helpful during development.
+
+      score_and_cluster_phrases.py:
+        purpose: Clusters unmatched relationship strings using semantic similarity.
+        input: output/unmatched_phrases.txt
+        output: output/clustered_phrases.json (or used inline)
+
+      tag_index_builder.py:
+        purpose: Builds index of all tagged phrases, entities, and relationship types for lookup or suggestions.
+        output: tagged/relationships_tagged.jsonl
+
+      tag_index_viewer_v3.py:
+        purpose: UI for browsing tagged relationship clusters and verifying consistency.
+        input: tagged/relationships_tagged.jsonl
+
+      test2.py:
+        purpose: Debugging tool to test the current relationships.jsonl output and print matches.
+
+      wiki_relationship_extractor_utf8.py:
+        purpose: Extracts text and candidate relationships from wiki HTML or DocuWiki markup.
+        input: raw wiki content
+        output: output/wiki_pages.json
+
+files:
+  config/relationships.yaml:
+    purpose: Defines regex or semantic patterns to identify structured relationships in wiki text.
+    status: Backup only — now using relationships_tagged.jsonl instead.
+
+  tagged/relationships_tagged.jsonl:
+    purpose: Canonical list of reviewed, tagged relationships ready for graph processing.
+    source: clustered_matcher_ui_v3.py or matcher_ui_v3.py
+
+  output/wiki_pages.json:
+    purpose: Parsed wiki pages with page ID and raw sentence text for relationship scanning.
+
+  output/relationships.jsonl:
+    purpose: Output from apply_relationship_patterns.py — machine-readable relationship records.
+
+  output/unmatched_phrases.txt:
+    purpose: Phrases that didn’t match any relationship pattern — source for clustering/tagging.
+
+  output/graph_data.json:
+    purpose: Network-formatted graph for visual display of entities and relationships.
+
+  backup_unused/:
+    purpose: Holds older or unused files moved out during cleanup for review or deletion.

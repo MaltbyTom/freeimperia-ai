@@ -1,96 +1,109 @@
-# 🧠 Free Imperia Relationship Graph Toolset
+# 📚 FreeImperia-AI: Relationship Extraction and Visualization Toolkit
 
-This toolkit automatically extracts, clusters, tags, and visualizes lore relationships from a DokuWiki-powered worldbuilding site — originally developed for a long-running AD&D 2E campaign.
+This toolkit supports automated relationship extraction, clustering, tagging, and graph generation for the **Free Imperia** AD&D 2E campaign setting, sourced from a DocuWiki-based site.
 
 ---
 
-## ⚙️ Setup Instructions
+## 📁 Directory Structure
 
-### 1. Clone or Download the Repo
-
-```bash
-git clone https://github.com/your-username/free-imperia-graph-tools.git
-cd free-imperia-graph-tools
 ```
-
-### 2. Install Requirements
-
-```bash
-pip install -r requirements.txt
-python -m spacy download en_core_web_md
+freeimperia-ai/
+├── tools/                  # Core extraction, tagging, and transformation tools
+├── config/                 # Project configuration files
+├── data/                   # Input/output data files (JSON, JSONL, YAML)
+├── tagged/                 # Tagged relationships and semantic clusters
+├── output/                 # Extracted relationships, graph files, unmatched phrases
+├── backup_unused/          # Files/scripts moved during cleanup
+└── README.md               # This file
 ```
 
 ---
 
-## 📦 Included Tools
+## 🧰 Core Tools (in `/tools`)
 
-### `wiki_relationship_extractor_utf8.py`
-Extracts candidate relationship phrases from wiki text.
-- Preserves internal `[[links]]` for accurate source/target IDs
-- Uses semantic scoring to match against known YAML patterns
-- Outputs:
-  - `relationships.jsonl`
-  - `unmatched_phrases.txt`
+### 🧠 `wiki_relationship_extractor_utf8.py`
+- **Purpose**: Extracts semantic relationships from DocuWiki pages using regex and pattern matchers.
+- **Output**: `output/wiki_pages.json`, `output/unmatched_phrases.txt`
 
-### `clustered_matcher_ui_v3.py`
-Interactive Streamlit app for tagging clustered phrase patterns.
-- Batch-tag entire clusters of similar phrases
-- Suggests likely tag types
-- Outputs:
-  - `relationships_expanded.yaml`
-  - `relationships_tagged.jsonl`
+### 🔄 `apply_relationship_patterns.py`
+- **Purpose**: Applies structured pattern rules to generate matched relationships.
+- **Output**: `output/relationships.jsonl`
+- **Uses**: `config/relationships.yaml` or `tagged/relationships_expanded.yaml`
 
-### `jsonl_to_graph.py`
-Builds a node-edge graph from tagged phrases.
-- Resolves `{source}` and `{target}` from `linked_entities`
-- Adds sentence context to each edge
-- Outputs:
-  - `graph_data.json` (for viewer)
+### 🧩 `score_and_cluster_phrases.py`
+- **Purpose**: Scores and clusters unmatched sentences using semantic similarity.
+- **Output**: Clustered phrases to assist human tagging
 
-### `tag_index_builder.py`
-Consolidates a tag index showing how patterns are used.
-- Combines YAML, tagged data, and graph edges
-- Outputs:
-  - `tag_index.json`
+### 🧙 `clustered_matcher_ui_v3.py`
+- **Purpose**: Interactive UI for tagging relationship clusters and exporting labeled data.
+- **Output**: `tagged/relationships_tagged.jsonl`
 
-### `tag_index_viewer_v3.py`
-Explore tag usage and add review notes.
-- View all occurrences of each tag/pattern
-- Comment or flag sentences for review
-- Export annotations or YAML snippets
+### 📈 `jsonl_to_graph.py`
+- **Purpose**: Converts JSONL-tagged relationships into graph format (GraphJSON or other).
+- **Output**: `output/graph_data.json`
 
----
+### 🧪 `test2.py`
+- **Purpose**: Small utility to preview or debug relationship entries from a `.jsonl` file.
 
-## 🔄 Workflow Summary
+### 🧼 `cleanup_freeimperia.py`
+- **Purpose**: Moves unused or legacy files into `backup_unused/` safely.
+- **Behavior**: Skips whitelisted files and directories.
 
-1. `python wiki_relationship_extractor_utf8.py`
-2. `streamlit run clustered_matcher_ui_v3.py`
-3. `python jsonl_to_graph.py`
-4. `python tag_index_builder.py`
-5. `streamlit run tag_index_viewer_v3.py`
+### 🏷️ `tag_index_builder.py`
+- **Purpose**: Builds a lookup index of all tagged relationship types and sources.
+- **Output**: Internal utility for UI support.
+
+### 🕵️ `tag_index_viewer_v3.py`
+- **Purpose**: Explore and filter tagged relationship index for QA/debugging.
+
+### 🧪 `matcher_ui_v3.py`
+- **Purpose**: Older UI for tagging individual lines, useful for smaller batches.
 
 ---
 
-## 🗃️ File Outputs
+## ⚙️ Config Files
 
-| File | Description |
-|------|-------------|
-| `wiki_pages.json` | Cached wiki content |
-| `relationships.jsonl` | Raw matched relationships |
-| `relationships_expanded.yaml` | Defined pattern sets |
-| `relationships_tagged.jsonl` | Final tagged phrases |
-| `graph_data.json` | Input for interactive viewer |
-| `tag_index.json` | Summary of tag usage |
-| `review_notes.json` | Optional review output from viewer |
+### `config/config.py`
+Contains shared paths and constants. All tools refer to this file for consistency.
+
+### `config/project_structure.yaml`
+Defines the expected directory structure and helps validate setup.
+
+### `tagged/relationships_expanded.yaml`
+Expanded list of relationship patterns with names and example structures.
+Used in pattern-based matching.
+
+---
+
+## 📊 Data Files
+
+- `output/wiki_pages.json`: All parsed page text from wiki
+- `output/relationships.jsonl`: Main extracted relationships
+- `tagged/relationships_tagged.jsonl`: Human-tagged relationships for training
+- `output/graph_data.json`: Final graph-formatted output
+- `output/unmatched_phrases.txt`: Phrases that were not pattern matched
 
 ---
 
-## 🧪 Coming Soon / Optional Tools
+## ✅ Getting Started
 
-- `entity_merge_suggester.py`
-- `pattern_suggester.py`
-- `multi-graph explorer`
-- `full text tokenizer` for language model indexing
+```bash
+python tools/wiki_relationship_extractor_utf8.py
+python tools/apply_relationship_patterns.py
+python tools/score_and_cluster_phrases.py
+python tools/clustered_matcher_ui_v3.py
+python tools/jsonl_to_graph.py
+```
+
+Use `cleanup_freeimperia.py` occasionally to archive unused or deprecated files.
 
 ---
+
+## 🔗 Repo Info
+- **GitHub**: [github.com/MaltbyTom/freeimperia-ai](https://github.com/MaltbyTom/freeimperia-ai)
+- **Branch**: `dev`
+
+---
+
+Let me know if you'd like to auto-generate the index of relationship types, prepare documentation for hosting on ReadTheDocs or GitHub Pages, or integrate a Makefile for tool orchestration.
 
