@@ -1,0 +1,24 @@
+# Python cache & compiled files
+__pycache__/
+*.py[cod]
+
+# Virtualenvs
+venv/
+env/
+
+# Output & backups
+output/
+*.jsonl
+*.txt
+*.bak
+*.log
+*.db
+
+# Sensitive files
+config.py
+secrets/
+*.env
+
+# VS Code and IDE settings
+.vscode/
+.idea/
