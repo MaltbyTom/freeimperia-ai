@@ -1,0 +1,30 @@
+# config/file_registry.yaml
+# Master reference of all key data files used in the Free Imperia AI toolchain
+
+wiki_data:
+  raw_pages: data/raw/wiki_pages.json               # Raw wiki page content keyed by page slug
+  page_backup: data/raw/wiki_pages_backup.json      # Older backup version of wiki_pages.json
+
+relationships:
+  raw_output: data/output/relationships.jsonl       # Output from apply_relationship_patterns.py
+  tagged_output: data/tagged/relationships_tagged.jsonl  # Manually tagged or reviewed output
+  unmatched_output: data/output/unmatched_phrases.txt    # Unmatched phrases from pattern matching
+  skipped_phrases: data/output/skipped_phrases.txt       # Optional: ignored/misclassified phrases
+
+patterns:
+  pattern_yaml: data/patterns/relationships.yaml          # Raw relationship patterns
+  pattern_expanded: data/patterns/relationships_expanded.yaml  # With tag suggestions added
+
+graph_data:
+  people_graph: data/output/people_graph.json       # Node/link JSON from jsonl_to_graph.py
+  divine_graph: data/output/divine_graph.json       # Not yet generated, placeholder entry
+  test_graph: data/output/test/graph_data.json      # Testing graph from test/ dir
+
+tagging_support:
+  tag_index: data/tagged/tag_index.json             # Tag suggestions, from tag_index_builder
+  skipped_clusters: data/tagged/skipped_clusters.txt   # Marked for exclusion
+  relationships_backup: data/tagged/relationships_expanded_backup.yaml
+
+debugging_and_test:
+  debug_page_html: tools/debug/debug_raw_page.html  # Tool to inspect page parsing output
+  test_clusters_jsonl: data/test/relationships.jsonl  # For dev testing purposes
