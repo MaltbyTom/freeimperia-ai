@@ -1,0 +1,166 @@
+# 🔧 Class + Kit
+- name: has class
+  patterns:
+    - "C({target})"
+    - "Cleric({target})"
+    - "Druid({target})"
+    - "Ranger({target})"
+    - "F({target})"
+    - "Fighter({target})"
+    - "M({target})"
+    - "Mage({target})"
+    - "Thief({target})"
+    - "T({target})"
+    - "W({target})"
+    - "{target} L"
+    - "L[0-9]+ {target}"
+    - "{target} Elf"
+    - "{target} Dwarf"
+    - "{target} Human"
+    - "{target} Half Elf"
+    - "{target} Gnome"
+    - "Harnic {target}"
+    - "Krynnic {target}"
+
+# 🧝‍♂️ Noble Houses
+- name: is noble house
+  patterns:
+    - "House {target}"
+    - "{target} House"
+    - "Who House"
+    # Removed: Starbreeze — false-positive from character page
+    # Improved: Prevent people from being tagged as houses
+    - "House of {target}"
+
+# ⚔️ Military Relationships
+- name: is member of
+  patterns:
+    - "{source} of the {target}"
+    - "{source}, {target}"
+    - "{source} - {target}"
+    - "{target} member: {source}"
+    - "{source} is a member of {target}"
+
+- name: commands
+  patterns:
+    - "{source}, Commander, {target}"
+    - "{source} commands the {target}"
+    - "{source} is commander of {target}"
+    - "Commander {source} of the {target}"
+
+- name: serves
+  patterns:
+    - "{source} in service to {target}"
+    - "{source} serve {target}"
+    - "{source} serving with the {target}"
+
+# 🔮 Magic & Items
+- name: is magic item
+  patterns:
+    - "Hammer of {target}"
+    - "The {source} functions as a +{target} weapon"
+
+- name: authored spell
+  patterns:
+    - "Unique Spells by {source}"
+    - "{source}'s Air Mask"
+    - "{source}’s Ice Knives"
+
+# 🌍 Geography & Cities
+- name: built capital for
+  patterns:
+    - "{source} built a nominal capital here for the {target}"
+    - "{source} established a capital for the {target}"
+
+- name: controls
+  patterns:
+    - "{source} shape policy of {target}"
+    - "{source} guide {target}"
+
+- name: located in
+  patterns:
+    - "set on the {target}"
+    - "located in the {target}"
+    - "in the {target}"
+
+- name: north of
+  patterns:
+    - "just to the North of {target}"
+    - "north of the {target}"
+
+- name: at southern edge of
+  patterns:
+    - "Southernmost end of the {target}"
+    - "southern edge of the {target}"
+
+- name: trades in
+  patterns:
+    - "{source} trade in {target}"
+    - "{source} trades in {target}"
+
+- name: exports
+  patterns:
+    - "{source} export {target}"
+    - "primarily in {target}"
+    - "nets them a tidy profit in {target}"
+
+- name: maintained by
+  patterns:
+    - "{source}'s administration maintains the {target}"
+    - "{source} maintains the {target}"
+
+# 🏛️ Factions / Political / Economic
+- name: has monopoly on
+  patterns:
+    - "{source} has monopoly on {target}"
+    - "{source} leverages monopoly on {target}"
+
+- name: dominates trade on
+  patterns:
+    - "{source} dominates trade on {target}"
+    - "{source} owns trade on {target}"
+
+- name: builds
+  patterns:
+    - "{source} builds {target}"
+    - "{source} constructs {target}"
+    - "{source} funds construction of {target}"
+
+- name: increases strength of
+  patterns:
+    - "{source} increases {target}'s strength"
+    - "increase {target}'s {target2}"
+
+- name: uses network of
+  patterns:
+    - "{source} uses network of {target}"
+    - "furthered by the {target} network"
+
+- name: coordinates with
+  patterns:
+    - "{source} coordinates with {target}"
+
+- name: receives security from
+  patterns:
+    - "{source} receives security from {target}"
+    - "{target} provides security for {source}"
+
+- name: builds diplomatic bridges with
+  patterns:
+    - "{source} builds diplomatic bridges with {target}"
+    - "{source} improves diplomacy with {target}"
+
+- name: provides
+  patterns:
+    - "{source} provides {target}"
+    - "{source} offers {target}"
+
+- name: performs
+  patterns:
+    - "{source} performs {target}"
+    - "{source} engages in {target}"
+
+- name: is board member of
+  patterns:
+    - "{source} is member of {target} board"
+    - "{source} is founding board member of {target}"

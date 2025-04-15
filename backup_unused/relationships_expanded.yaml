@@ -1,0 +1,27 @@
+relationships:
+  - name: serves
+    patterns:
+      - "{source} serves {target}"
+      - "{source} is a bodyguard to {target}"
+      - "{source} is an aide to {target}"
+
+  - name: has
+    patterns:
+      - "{target} has smiths"
+      - "{target} has pilots"
+      - "{target} employs guides"
+
+  - name: owns
+    patterns:
+      - "{source} owns {target}"
+      - "{source}'s ship is the {target}"
+
+  - name: studies under
+    patterns:
+      - "{source} studies under {target}"
+      - "{source} is a student of {target}"
+
+  - name: trades with
+    patterns:
+      - "{source} trades with {target}"
+      - "{source} sends caravans to {target}"

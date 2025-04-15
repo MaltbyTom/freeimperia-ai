@@ -1,0 +1,25 @@
+- name: has class
+  patterns:
+  - \b(?P<source>[\w\s'\-]+) - (?P<relationship>[^L]+)L\d+
+  - \b(?P<source>[\w\s'\-]+) - (?P<relationship>[^L]+)L\d+/\d+
+  - \b(?P<source>[\w\s'\-]+)\s+is a\s+(?P<relationship>[\w\s]+)
+  - \b(?P<source>[\w\s'\-]+)\s+F/?[MCPTDR]?(\([^)]*\))?\s+L\d+(/\d+)?
+- name: has race
+  patterns:
+  - '\b(?P<source>[\w\s''\-]+) - [^L]+L\d+[^-]+-\s+(?P<target>[A-Z][a-z]+(?: \([^)]+\))?)'
+- name: has alignment
+  patterns:
+  - \b(?P<source>[\w\s'\-]+) - [^L]+L\d+\s+(?P<target>[CLN]{1,2}G|NE|CE|CN|N|LG|NG|LN)
+- name: is vassal of
+  patterns:
+  - \b(?P<source>[\w\s'\-]+)\s+- .*? - .*? - .*? - .*? is in direct vassalage to the
+    (?P<target>[\w\s]+)
+  - (?P<source>[\w\s'\-]+) - .*? - .*? - .*? - .*? in direct vassalage to the (?P<target>[\w\s]+)
+- name: is advocate for
+  patterns:
+  - (?P<source>[\w\s'\-]+) House Advocate for (?P<target>\[\[.*?\]\])
+  - (?P<source>[\w\s'\-]+) serves (?P<target>\[\[.*?\]\])
+- name: is member of
+  patterns:
+  - (?P<source>[\w\s'\-]+)\s+is a member of the\s+(?P<target>\[\[.*?\]\])
+  - (?P<source>[\w\s'\-]+)\s+is a member of\s+(?P<target>\[\[.*?\]\])
