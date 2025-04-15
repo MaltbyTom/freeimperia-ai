@@ -1,0 +1,71 @@
+# lore_reference.yaml
+# ✅ Structured summary of remembered world lore for Free Imperia
+# 📚 This file is used as a re-loadable reference to avoid overfilling assistant memory.
+
+world:
+  name: Free Imperia
+  system: AD&D 2E
+  wiki: DocuWiki (custom)
+  hosted_at: https://www.freeimperia.com/fiwiki
+
+magic_and_divine:
+  divine_structure:
+    - Eru Ilúvatar (aka Emperor over the Water, Yashua, Father of Aslan)
+    - Aslan (aka Jesus, son of the Emperor over the Water)
+    - Valar and Maiar (Arda-based divine hierarchy)
+    - Other gods (e.g., Thor, Odin, Bahamut, Takhisis, Tiamat) may or may not defer to Eru
+  clerics_and_paladins:
+    - Derive powers from divine or cosmic entities
+    - Often supported by Valar if followers of Eru
+    - Divine relationships are overlapping, ambiguous ("is aspect of" preferred in graphs)
+
+divine_beings_and_entities:
+  major:
+    - Eru Ilúvatar (Emperor/Yashua)
+    - Aslan / Jesus
+    - Morgoth / Melkor
+    - Sauron
+    - Ungoliant
+    - Tiamat / Takhisis
+    - Bahamut / Paladine
+    - Orcus
+    - Asmodeus
+    - Chemosh
+    - Thuringwethil (corrupted Maia)
+  valar_and_valier:
+    - Lords: Manwë, Ulmo, Aulë, Oromë, Mandos, Lórien, Tulkas
+    - Valier: Varda, Yavanna, Nienna, Estë, Vairë, Vána, Nessa
+    - Melkor was once a Valar, no longer counted
+
+semi_divine_and_unique:
+  - Harvey (polymorphic kirin, bonded to Eltan, began as hallucination)
+  - Radwen (Harvey's daughter, polymorphic swanship, wants to reopen Valinor)
+  - Huan (great hound of Oromë, Maia)
+  - Eagles of Manwë (Maiar)
+  - Lancelot (Paladin of Yashua, on path to sainthood)
+  - Mica of the Nine (Deacon of Bahamut, granted a weekly wish)
+
+plot_threads:
+  - ArchDuke Eltan plans to reopen the road to Valinor
+  - Cult of Sauron infiltration underway
+  - Dagor Dagorath (end-times) is approaching
+  - Party’s return to Arda restored magic, alerted Morgoth/Sauron/Ungoliant
+  - Divine grudges: Orcus, Asmodeus, Tasha vs the party
+
+character_notes:
+  - ArchDuke Eltan: Paladin of Church of Eru Ilúvatar, bonded to Harvey
+  - Kane: Pope of Aslan on Arda
+  - Aragorn (Emperor): Not religious, son of Eltan
+  - Laurana: Empress, wife of Aragorn
+  - Gilthanas: King of Elves, vassal to Emperor, married to Silver Dragon
+
+graphing_notes:
+  - Use “is aspect of” instead of clustering for overlapping deities
+  - Graph entities include: divine beings, churches, cults, clerics, paladins, antagonists
+  - Church and character pages often have mirrored relationships
+  - Keep divine & factional graphs separate from “People & Notable Figures”
+
+wiki_formatting:
+  - Canonical linking uses [[Mica of the Nine]] format
+  - Important files: `wiki_pages.json`, `relationships_tagged.jsonl`, `relationships.yaml`
+  - Page types: characters, churches, divine beings, factions, history, locations, events
