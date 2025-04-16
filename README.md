@@ -1,65 +1,88 @@
-# 📚 FreeImperia-AI: Relationship Extraction and Visualization Toolkit
+# 🧠 freeimperia-ai — AI-Augmented Knowledge Graph Tooling for Worldbuilding Wikis
 
-This toolkit supports automated relationship extraction, clustering, tagging, and graph generation for the **Free Imperia** AD&D 2E campaign setting, sourced from a DocuWiki-based site.
+This project is an open-source AI pipeline for extracting and organizing structured relationship data from fantasy wiki content. The tools were developed to enhance the *Free Imperia* campaign setting, an expansive high-fantasy world built in the AD&D 2E system and hosted in a [DokuWiki instance](https://www.dokuwiki.org/).
+
+The system is designed to help Dungeon Masters and contributors **automatically parse, tag, cluster, and graph** complex in-universe lore such as divine hierarchies, character affiliations, and ongoing plot threads.
+
+### 📚 Intended Workflow
+
+This project builds a bridge between a text-heavy game wiki and AI-assisted knowledge tools. The idea is to:
+
+1. **Tokenize** raw wiki content
+2. **Extract candidate relationship phrases**
+3. **Cluster similar patterns and tag semantic relationships**
+4. **Generate graph-ready structured data**
+5. **Enable search, visualization, or LLM comprehension of world lore**
+
+The result is a cleanly modeled dataset of characters, divine forces, political groups, and narrative arcs that can power world exploration, game prep, or even NPC dialog systems.
+
+> ⚔️ Although born from a D&D setting, this pipeline can apply to *any fictional wiki* or dense relationship-based corpus.
+
+---
+
+## 📦 File Structure
+
+All tool, config, and data files are organized into modular subdirectories for clarity:
+
+freeimperia-ai/ ├── config/ # Core configuration and rules │ ├── project_structure.yaml │ ├── rules.yaml │ ├── tools_registry.yaml │ ├── world_lore_reference.yaml │ └── file_stability.yaml │ ├── data/ # Input/output data for the processing pipeline │ ├── output/ # Final extracted or matched outputs │ └── tagged/ # Human-reviewed or partially tagged data │ ├── tools/ # Python tools for each stage of the process ├── audits/ # Audit reports for tools and data └── README.md # You are here!
+
 
 ---
 
-## 📁 Directory Structure
+## 🛠 Tools Overview
 
-```
-freeimperia-ai/
-├── tools/                  # Core extraction, tagging, and transformation tools
-├── config/                 # Project configuration files
-├── data/                   # Input/output data files (JSON, JSONL, YAML)
-├── tagged/                 # Tagged relationships and semantic clusters
-├── output/                 # Extracted relationships, graph files, unmatched phrases
-├── backup_unused/          # Files/scripts moved during cleanup
-└── README.md               # This file
-```
+All tools are listed in [`tools_registry.yaml`](config/tools_registry.yaml) and audited in [`audits/tool_audit.md`](audits/tool_audit.md).
+
+| Tool | Purpose | Inputs | Outputs |
+|------|---------|--------|---------|
+| `wiki_relationship_extractor_utf8.py` | Extracts raw relationship phrases from wiki pages | `wiki_pages.json` | `relationships.jsonl`, `unmatched_phrases.txt` |
+| `score_and_cluster_phrases.py` | Clusters and scores unmatched phrases | `unmatched_phrases.txt` | `scored_phrases.jsonl` |
+| `clustered_matcher_ui_v3.py` | UI to tag phrase clusters with relationships | `scored_phrases.jsonl` | `relationships_tagged.jsonl`, `skipped_clusters.txt` |
+| `tag_index_builder.py` | Builds an index of tagged clusters | `relationships_tagged.jsonl` | `tag_index.yaml` |
+| `tag_index_viewer_v3.py` | Views and filters the tag index | `tag_index.yaml` | — |
+| `apply_relationship_patterns.py` | Applies pattern-matched relationships across pages | `relationships.yaml`, `wiki_pages.json` | `relationships.jsonl` |
+| `jsonl_to_graph.py` | Converts relationships into graph-ready format | `relationships.jsonl` | `graph_data.json` |
+| `matcher_ui_v2.py` / `matcher_ui_v3.py` | Manual tagging interfaces | `unmatched_phrases.txt` | `relationships_tagged.jsonl` |
+| `cleanup_freeimperia.py` | Moves unused or deprecated files to backup | project root | `backup_unused/` |
+| `cleanup_data_files.py` | Deletes known temp data, renames backups | `data/output/`, `data/tagged/` | Cleaned directories |
+| `test2.py` | Displays high-confidence pattern-matched examples for QA | `relationships.jsonl` | console |
+| `config.py` | Shared constants and file paths | n/a | used internally |
+
+---
+
+## 📘 Rules & Memory Management
+
+- The system enforces tool usage and memory policies via [`rules.yaml`](config/rules.yaml)
+- Context overflow is mitigated by offloading or summarizing files
+- Never claims to save or push unless verified
+- Reference files like `world_lore_reference.yaml` are used in place of in-memory lore
+- Audit trails for tools and data are maintained in `audits/`
 
 ---
 
-## 🧰 Core Tools (in `/tools`)
+## 💡 Future Expansion
 
-### 🧠 `wiki_relationship_extractor_utf8.py`
-- **Purpose**: Extracts semantic relationships from DocuWiki pages using regex and pattern matchers.
-- **Output**: `output/wiki_pages.json`, `output/unmatched_phrases.txt`
-
-### 🔄 `apply_relationship_patterns.py`
-- **Purpose**: Applies structured pattern rules to generate matched relationships.
-- **Output**: `output/relationships.jsonl`
-- **Uses**: `config/relationships.yaml` or `tagged/relationships_expanded.yaml`
-
-### 🧩 `score_and_cluster_phrases.py`
-- **Purpose**: Scores and clusters unmatched sentences using semantic similarity.
-- **Output**: Clustered phrases to assist human tagging
-
-### 🧙 `clustered_matcher_ui_v3.py`
-- **Purpose**: Interactive UI for tagging relationship clusters and exporting labeled data.
-- **Output**: `tagged/relationships_tagged.jsonl`
-
-### 📈 `jsonl_to_graph.py`
-- **Purpose**: Converts JSONL-tagged relationships into graph format (GraphJSON or other).
-- **Output**: `output/graph_data.json`
-
-### 🧪 `test2.py`
-- **Purpose**: Small utility to preview or debug relationship entries from a `.jsonl` file.
-
-### 🧼 `cleanup_freeimperia.py`
-- **Purpose**: Moves unused or legacy files into `backup_unused/` safely.
-- **Behavior**: Skips whitelisted files and directories.
-
-### 🏷️ `tag_index_builder.py`
-- **Purpose**: Builds a lookup index of all tagged relationship types and sources.
-- **Output**: Internal utility for UI support.
-
-### 🕵️ `tag_index_viewer_v3.py`
-- **Purpose**: Explore and filter tagged relationship index for QA/debugging.
-
-### 🧪 `matcher_ui_v3.py`
-- **Purpose**: Older UI for tagging individual lines, useful for smaller batches.
+Planned features:
+- Graph visualization with interactive filtering
+- Export to Neo4j or RDF formats
+- Real-time tagging UI for multiplayer worldbuilding
+- Spelljammer and planar relationship modeling
+- Import support for Markdown and Obsidian vaults
 
 ---
+
+## ⚔️ About the Setting
+
+The Free Imperia is a Spelljammer-inspired high-fantasy setting that merges Tolkienian cosmology with multiverse politics and divine intrigue. Characters such as Lancelot, Aslan, and Tiamat appear alongside original factions, kirins made real by prayer, and skyfaring elf nobility seeking lost Valinor.
+
+All examples and outputs are drawn from this deep, evolving campaign wiki hosted at [www.freeimperia.com](http://www.freeimperia.com/).
+
+---
+
+## 📜 License & Contribution
+
+MIT Licensed. Contributions welcome! Use the `dev` branch and submit pull requests with clear descriptions and updated audit logs.
+
 
 ## ⚙️ Config Files
 

@@ -66,3 +66,10 @@ global:
     yaml_output: true
     json_output: true
     must_include_description_comments: true
+
+  # Behavioral rules
+  behavior:
+    never_say_back_soon: true
+    do_not_check_back_after_control_is_returned: true
+    always_verify_file_structure_before_path_reference: true
+    if_cannot_remember_check_reference_files: true

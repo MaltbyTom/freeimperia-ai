@@ -1,0 +1,67 @@
+tools:
+  - name: apply_relationship_patterns.py
+    description: Applies structured relationship patterns to raw wiki text.
+    inputs:
+      - config/relationships.yaml
+      - data/output/wiki_pages.json
+    outputs:
+      - data/output/relationships.jsonl
+      - data/output/unmatched_phrases.txt
+
+  - name: cleanup_data_files.py
+    description: One-time cleanup utility to remove outdated, unused, or legacy data artifacts.
+    status: used-once
+    removed: true
+    removed_reason: Manually deleted after successful execution. Cleared outdated backups and test data.
+
+  - name: clustered_matcher_ui_v3.py
+    description: UI to review and cluster semantically similar unmatched phrases.
+    inputs:
+      - data/output/unmatched_phrases.txt
+    outputs:
+      - data/tagged/relationships_tagged.jsonl
+
+  - name: jsonl_to_graph.py
+    description: Converts relationship data in JSONL format to graph structure (e.g., for visualization).
+    inputs:
+      - data/output/relationships.jsonl
+    outputs:
+      - data/output/graph_data.json
+
+  - name: matcher_ui_v2.py
+    description: Interactive UI for validating semantic match results.
+    inputs:
+      - data/output/unmatched_phrases.txt
+    outputs:
+      - data/tagged/relationships_tagged.jsonl
+
+  - name: matcher_ui_v3.py
+    description: Newer, enhanced matcher UI with clustering and preview tools.
+    inputs:
+      - data/output/unmatched_phrases.txt
+    outputs:
+      - data/tagged/relationships_tagged.jsonl
+
+  - name: score_and_cluster_phrases.py
+    description: Clusters unmatched phrases using semantic similarity scoring.
+    inputs:
+      - data/output/unmatched_phrases.txt
+    outputs:
+      - internal memory (clusters fed to matcher tools)
+
+  - name: tag_index_builder.py
+    description: Builds tag index for navigating tagged relationships.
+    inputs:
+      - data/tagged/relationships_tagged.jsonl
+    outputs:
+      - config/tags_index.json
+
+  - name: tag_index_viewer_v3.py
+    description: UI for browsing and filtering the tag index.
+    inputs:
+      - config/tags_index.json
+
+  - name: test2.py
+    description: QA script to spot-check relationships in the latest relationship file.
+    inputs:
+      - data/output/relationships.jsonl
