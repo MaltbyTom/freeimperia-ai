@@ -1,47 +1,68 @@
-# 🧠 MEMORY MANAGEMENT RULES
+# rules.yaml — Memory and Interaction Rules for Free Imperia AI
 
-memory:
-  limit_loaded_files: true                  # Actively enforce a limit on concurrent file loads
-  max_loaded_files: 3                       # Default file memory cap (excluding exempt files)
-  exempt_files:                             # Always-accessible reference files
-    - config/config.yaml
-    - config/file_registry.yaml
+global:
+  # Limit the number of files and objects in active memory to reduce context overflow.
+  memory-budget:
+    max_files_in_memory: 3
+    max_documents_total: 100
+    warning_threshold: 90
+    action_on_overflow: summarize_or_offload
+
+  # Don't fabricate saves, pushes, or file modifications.
+  promise-integrity:
+    never_fake_save: true
+    never_claim_push: true
+    never_imply_write_access: true
+    required_output_behavior: "Show full content or downloadable copy unless user confirms save."
+
+  # Define canonical references for memory restoration and low-memory fallback.
+  reference-files:
+    - config/project_structure.yaml
+    - config/tools_registry.yaml
+    - config/world_lore_reference.yaml
     - config/rules.yaml
-    - config/lore.yaml
-  evict_least_recent_first: true            # Automatically unload least recently used file
-  force_eviction_on_overflow: true          # Evict even if memory full before proceeding
-  max_context_size_kb: 100                  # Soft cap for text content before triggering unloads
 
-# 📁 FILE ACCESS POLICIES
+  # YAML and code style best practices.
+  format-discipline:
+    enforce_consistent_indentation: true
+    remove_trailing_whitespace: true
+    prefer_snake_or_kebab_case_keys: true
+    avoid_duplicate_keys: true
 
-access:
-  never_assume_cache: true                  # Always revalidate tool context and paths
-  confirm_tool_behavior_from_registry: true # Tool inputs/outputs must match registry
-  always_check_before_action:
-    tag generation: config/rules.yaml
-    tool IO: config/file_registry.yaml
-    lore expansion: config/lore.yaml
-    divine graph: config/lore.yaml
-    cleanup: config/file_registry.yaml
-    cluster scoring: config/config.yaml
-    visual graphs: config/config.yaml
+  # Tools and data registration
+  registration-discipline:
+    require_tools_registry_update: true
+    require_project_structure_update: true
+    audit_outputs_to: audits/
+    require_audit_md_for_tooling: true
 
-# 🛠️ TOOL USAGE & DOCUMENTATION
+  # File usage policy for tools
+  file-usage-limits:
+    max_active_tools: 3
+    max_active_data_files: 3
+    handling_notes:
+      - "Load sequentially and unload when not required"
+      - "Summarize structure when context is limited"
 
-tool:
-  use_registry_paths: true                  # Never hardcode I/O paths inside tools
-  require_docstring_for_all_tools: true     # Ensure each tool has clear inline usage
-  require_entry_in_readme: true             # Add tool name, function, inputs/outputs to README
-  require_entry_in_registry: true           # Add tool paths to config/file_registry.yaml
+  # Memory status and warnings
+  memory-monitor:
+    warn_if_exceeds:
+      documents: 100
+      yaml_json_files: 5
+    mitigation:
+      - unload_prior_context
+      - prompt_user_for_refocus
+      - use_reference_files_only
 
-# ✂️ FORMATTING + DATA HYGIENE
+  # Special directories
+  directory-usage:
+    audits_dir: audits/
+    backup_dir: backup_unused/
+    avoid_self-nesting: true
 
-format:
-  remove_extraneous_whitespace: true        # Strip leading/trailing and redundant spacing
-  normalize_line_endings: true              # Use consistent Unix-style newlines (\n)
-  prefer_yaml_over_json_when_editable: true # YAML for hand-editable config; JSON for logs/graphs
-
-data:
-  archive_unused: true                      # Move unused data to /backup_unused/
-  track_skipped_inputs: true                # Always output skipped phrases or cluster logs
-  standardize_entity_formatting: true       # Prefer [[entity_links]] and consistent race/class
+  # Output behavior
+  output-rules:
+    markdown_output: true
+    yaml_output: true
+    json_output: true
+    must_include_description_comments: true

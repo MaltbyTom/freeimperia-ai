@@ -1,0 +1,116 @@
+# tools_audit.yaml
+
+# ✅ Completed Audit of all tools in /tools directory
+# For each tool, we list: status, purpose, inputs, outputs, references config, notes
+
+tools:
+  apply_relationship_patterns.py:
+    status: working
+    purpose: "Applies regex or pattern-based relationships to wiki pages and generates structured relationships."
+    inputs:
+      - output/wiki_pages.json
+      - config/relationships.yaml
+    outputs:
+      - output/relationships.jsonl
+      - output/unmatched_phrases.txt
+    references_config: true
+    notes: "Reads cleaned wiki content and matches patterns like 'worships {target}'. Verified output pipeline working."
+
+  cleanup_freeimperia.py:
+    status: one_time_use
+    purpose: "Moves unused or deprecated files into a backup directory for organization and memory management."
+    inputs:
+      - root directory scan
+    outputs:
+      - backup_unused/
+    references_config: false
+    notes: "One-time use tool. Removed after use."
+
+  clustered_matcher_ui_v3.py:
+    status: working
+    purpose: "Interactive tool to tag and cluster related text into relationship patterns for graph creation."
+    inputs:
+      - output/unmatched_phrases.txt
+      - config/relationships_expanded.yaml
+    outputs:
+      - tagged/relationships_tagged.jsonl
+      - tagged/relationships_expanded.yaml
+    references_config: true
+    notes: "Essential for creating and refining relationship types from new content."
+
+  jsonl_to_graph.py:
+    status: working
+    purpose: "Converts tagged JSONL relationships into a knowledge graph format."
+    inputs:
+      - output/relationships.jsonl
+    outputs:
+      - output/graph_data.json
+    references_config: true
+    notes: "Stable. Graph format can be customized with helper config logic."
+
+  matcher_ui_v2.py:
+    status: deprecated
+    purpose: "Earlier version of the interactive matcher. Replaced by matcher_ui_v3 and clustered_matcher_ui_v3."
+    inputs: []
+    outputs: []
+    references_config: false
+    notes: "Recommend deletion after final audit."
+
+  matcher_ui_v3.py:
+    status: working
+    purpose: "Improved version of the matcher interface. May be used for testing before switching to clustered_matcher_ui."
+    inputs:
+      - output/unmatched_phrases.txt
+      - config/relationships_expanded.yaml
+    outputs:
+      - tagged/relationships_tagged.jsonl
+    references_config: true
+    notes: "Redundant with clustered_matcher_ui_v3 but useful for comparison."
+
+  score_and_cluster_phrases.py:
+    status: working
+    purpose: "Clusters similar unmatched phrases and scores them to prepare for matcher UI tagging."
+    inputs:
+      - output/unmatched_phrases.txt
+    outputs:
+      - output/clustered_phrases.json
+    references_config: false
+    notes: "Pre-processing step for interactive matchers. Optional, but helpful."
+
+  tag_index_builder.py:
+    status: working
+    purpose: "Builds a searchable index of tagged relationships for easier debugging and review."
+    inputs:
+      - tagged/relationships_tagged.jsonl
+    outputs:
+      - config/tag_index.yaml
+    references_config: false
+    notes: "Improves confidence and searchability during tagging process."
+
+  tag_index_viewer_v3.py:
+    status: working
+    purpose: "Interactive viewer for tag index entries created with tag_index_builder."
+    inputs:
+      - config/tag_index.yaml
+    outputs: []
+    references_config: false
+    notes: "Does not write output, only displays or previews relationships."
+
+  test2.py:
+    status: testing
+    purpose: "Quick loader to preview and print extracted relationships for spot-checking."
+    inputs:
+      - output/relationships.jsonl
+    outputs: []
+    references_config: false
+    notes: "Used for sanity checking. Update path before running."
+
+  wiki_relationship_extractor_utf8.py:
+    status: working
+    purpose: "Cleans and extracts wiki page content and structure into a normalized JSON format for downstream parsing."
+    inputs:
+      - raw wiki directory
+    outputs:
+      - output/wiki_pages.json
+    references_config: true
+    notes: "Key input to the pattern matching pipeline. Links and utf-8 compatible."
