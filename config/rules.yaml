@@ -1,0 +1,47 @@
+# 🧠 MEMORY MANAGEMENT RULES
+
+memory:
+  limit_loaded_files: true                  # Actively enforce a limit on concurrent file loads
+  max_loaded_files: 3                       # Default file memory cap (excluding exempt files)
+  exempt_files:                             # Always-accessible reference files
+    - config/config.yaml
+    - config/file_registry.yaml
+    - config/rules.yaml
+    - config/lore.yaml
+  evict_least_recent_first: true            # Automatically unload least recently used file
+  force_eviction_on_overflow: true          # Evict even if memory full before proceeding
+  max_context_size_kb: 100                  # Soft cap for text content before triggering unloads
+
+# 📁 FILE ACCESS POLICIES
+
+access:
+  never_assume_cache: true                  # Always revalidate tool context and paths
+  confirm_tool_behavior_from_registry: true # Tool inputs/outputs must match registry
+  always_check_before_action:
+    tag generation: config/rules.yaml
+    tool IO: config/file_registry.yaml
+    lore expansion: config/lore.yaml
+    divine graph: config/lore.yaml
+    cleanup: config/file_registry.yaml
+    cluster scoring: config/config.yaml
+    visual graphs: config/config.yaml
+
+# 🛠️ TOOL USAGE & DOCUMENTATION
+
+tool:
+  use_registry_paths: true                  # Never hardcode I/O paths inside tools
+  require_docstring_for_all_tools: true     # Ensure each tool has clear inline usage
+  require_entry_in_readme: true             # Add tool name, function, inputs/outputs to README
+  require_entry_in_registry: true           # Add tool paths to config/file_registry.yaml
+
+# ✂️ FORMATTING + DATA HYGIENE
+
+format:
+  remove_extraneous_whitespace: true        # Strip leading/trailing and redundant spacing
+  normalize_line_endings: true              # Use consistent Unix-style newlines (\n)
+  prefer_yaml_over_json_when_editable: true # YAML for hand-editable config; JSON for logs/graphs
+
+data:
+  archive_unused: true                      # Move unused data to /backup_unused/
+  track_skipped_inputs: true                # Always output skipped phrases or cluster logs
+  standardize_entity_formatting: true       # Prefer [[entity_links]] and consistent race/class
