@@ -1,69 +1,59 @@
-# tools_audit.yaml — Manual Review and Summary of Tools
+# tools_audit.yaml
 
 audited_tools:
-
-  - name: wiki_relationship_extractor_utf8.py
-    status: ✅ working
-    notes: |
-      Core extractor. Rewritten to preserve [[DocuWiki]] links as canonical anchors. Clean JSON output.
-
-  - name: apply_relationship_patterns.py
-    status: ✅ working
-    notes: |
-      Matches wiki content against patterns.yaml or relationships.yaml. Output validated to relationships.jsonl.
-
-  - name: score_and_cluster_phrases.py
-    status: ✅ working
-    notes: |
-      Clusters similar unmatched phrases. Output is in memory only but feeds UIs.
-
-  - name: clustered_matcher_ui_v3.py
-    status: ✅ working
-    notes: |
-      Interactive tagger with cluster preview, YAML/JSONL export, and semantic scoring.
-
-  - name: matcher_ui_v2.py
-    status: ✅ working
-    notes: |
-      Original matcher interface. Simpler but reliable. Batch-tagging slower.
-
-  - name: matcher_ui_v3.py
-    status: ✅ working
-    notes: |
-      New matcher interface with real-time preview and feedback.
-
-  - name: tag_index_builder.py
-    status: ✅ working
-    notes: |
-      Builds lookup table for faster reference when re-tagging or checking consistency.
-
-  - name: tag_index_viewer_v3.py
-    status: ✅ working
-    notes: |
-      Allows visualization and review of tags by relationship type or cluster source.
-
-  - name: jsonl_to_graph.py
-    status: ✅ working
-    notes: |
-      Verified to build working JSON graph format for visualizer tools. Supports divine, political, and personal graphs.
-
-  - name: test2.py
-    status: ⚠️ semi-working
-    notes: |
-      Works if you point it at the right file. Needs config integration or better default handling.
-
-  - name: cleanup_freeimperia.py
-    status: ✅ working
-    notes: |
-      Backs up everything not in SAFE_FILES/SAFE_DIRS. Caught self-nesting edge case and fixed.
-
-  - name: cleanup_data_files.py
-    status: ✅ working
-    notes: |
-      Safely deletes deprecated output/test artifacts. Paths now checked against updated data/ folder layout.
-
-  - name: generate_config_indexes.py
-    status: ✅ working
-    notes: |
-      Safely parses and indexes all config, tool, and rules metadata. Failed gracefully on invalid rules format earlier.
-
+  wiki_relationship_extractor_utf8.py:
+    status: working
+    reviewed: true
+    notes: Regex-based extractor. Output verified. Good input structure.
+  apply_relationship_patterns.py:
+    status: working
+    reviewed: true
+    notes: Pattern YAMLs confirmed. Writes to correct output.
+  score_and_cluster_phrases.py:
+    status: working
+    reviewed: true
+    notes: Requires input from extractor. Handles large sets well.
+  clustered_matcher_ui_v3.py:
+    status: working
+    reviewed: true
+    notes: Best tagging UI. Memory safe. Integrates with config index.
+  matcher_ui_v2.py:
+    status: working
+    reviewed: true
+    notes: Older UI, retained for fallback. Lighter memory.
+  matcher_ui_v3.py:
+    status: working
+    reviewed: true
+    notes: Semantic scoring added. Requires full clusters.
+  jsonl_to_graph.py:
+    status: working
+    reviewed: true
+    notes: Graph output validated. Requires good tagging inputs.
+  tag_index_builder.py:
+    status: working
+    reviewed: true
+    notes: Index accuracy verified against tags. Low memory.
+  tag_index_viewer_v3.py:
+    status: working
+    reviewed: true
+    notes: UI output tested. Very light footprint.
+  cleanup_freeimperia.py:
+    status: working
+    reviewed: true
+    notes: Safe. Respects audit folders and avoids recursion.
+  cleanup_data_files.py:
+    status: working
+    reviewed: true
+    notes: Directory-aware. Verified against dev file layout.
+  test2.py:
+    status: partial
+    reviewed: true
+    notes: Only tests basic filters. Needs expansion.
+  memory_status.py:
+    status: working
+    reviewed: true
+    notes: Required by rule. Safe and very light.
+  generate_config_indexes.py:
+    status: working
+    reviewed: true
+    notes: Caches config and tool relationships. Core infrastructure.
