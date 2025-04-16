@@ -1,0 +1,72 @@
+tools_by_input_file:
+  config/relationships.yaml:
+  - apply_relationship_patterns.py
+  data/output/wiki_pages.json:
+  - apply_relationship_patterns.py
+  data/output/unmatched_phrases.txt:
+  - clustered_matcher_ui_v3.py
+  - matcher_ui_v2.py
+  - matcher_ui_v3.py
+  - score_and_cluster_phrases.py
+  data/output/relationships.jsonl:
+  - jsonl_to_graph.py
+  - test2.py
+  data/tagged/relationships_tagged.jsonl:
+  - tag_index_builder.py
+  config/tags_index.json:
+  - tag_index_viewer_v3.py
+tools_by_output_file:
+  data/output/relationships.jsonl:
+  - apply_relationship_patterns.py
+  data/output/unmatched_phrases.txt:
+  - apply_relationship_patterns.py
+  data/tagged/relationships_tagged.jsonl:
+  - clustered_matcher_ui_v3.py
+  - matcher_ui_v2.py
+  - matcher_ui_v3.py
+  data/output/graph_data.json:
+  - jsonl_to_graph.py
+  internal memory (clusters fed to matcher tools):
+  - score_and_cluster_phrases.py
+  config/tags_index.json:
+  - tag_index_builder.py
+rules_by_category:
+  memory-budget:
+  - max_files_in_memory
+  - max_documents_total
+  - warning_threshold
+  - action_on_overflow
+  promise-integrity:
+  - never_fake_save
+  - never_claim_push
+  - never_imply_write_access
+  - required_output_behavior
+  boot-requirements:
+  - require_first_prompt_confirmation
+  - allowed_first_prompts
+  - reject_action_if_boot_not_confirmed
+  reference-files:
+  - config/project_structure.yaml
+  - config/tools_registry.yaml
+  - config/world_lore_reference.yaml
+  - config/rules.yaml
+  - config/core_ruleset.yaml
+  format-discipline:
+  - enforce_consistent_indentation
+  - remove_trailing_whitespace
+  - prefer_snake_or_kebab_case_keys
+  - avoid_duplicate_keys
+  memory-monitor:
+  - warn_if_exceeds
+  - mitigation
+file_classification:
+  transient: []
+  long_term:
+  - config/relationships.yaml
+  - tagged/relationships_tagged.jsonl
+  - output/wiki_pages.json
+  - output/relationships.jsonl
+  - output/unmatched_phrases.txt
+  - output/graph_data.json
+  - backup_unused/
+  audit_only: []
