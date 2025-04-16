@@ -1,67 +1,91 @@
+# tools_registry.yaml
+
 tools:
   - name: apply_relationship_patterns.py
-    description: Applies structured relationship patterns to raw wiki text.
+    description: Apply pattern-matching relationships to wiki_pages.json using relationships.yaml
     inputs:
       - config/relationships.yaml
       - data/output/wiki_pages.json
     outputs:
       - data/output/relationships.jsonl
       - data/output/unmatched_phrases.txt
-
-  - name: cleanup_data_files.py
-    description: One-time cleanup utility to remove outdated, unused, or legacy data artifacts.
-    status: used-once
-    removed: true
-    removed_reason: Manually deleted after successful execution. Cleared outdated backups and test data.
-
-  - name: clustered_matcher_ui_v3.py
-    description: UI to review and cluster semantically similar unmatched phrases.
-    inputs:
-      - data/output/unmatched_phrases.txt
-    outputs:
-      - data/tagged/relationships_tagged.jsonl
+    notes: Uses semantic and pattern-based matching to extract structured relationships from wiki text.
 
   - name: jsonl_to_graph.py
-    description: Converts relationship data in JSONL format to graph structure (e.g., for visualization).
+    description: Convert extracted relationships JSONL into a GraphJSON structure for visualization
     inputs:
       - data/output/relationships.jsonl
     outputs:
       - data/output/graph_data.json
+    notes: Can be modified to handle tags or support filtering by relationship type.
+
+  - name: clustered_matcher_ui_v3.py
+    description: Interactive UI to cluster and tag unmatched phrases from semantic extraction
+    inputs:
+      - data/output/unmatched_phrases.txt
+    outputs:
+      - data/tagged/relationships_tagged.jsonl
+    notes: Supports cluster preview, tag auto-suggestions, YAML/JSONL export.
 
   - name: matcher_ui_v2.py
-    description: Interactive UI for validating semantic match results.
+    description: Lightweight UI for manually matching relationships from raw phrase data
     inputs:
       - data/output/unmatched_phrases.txt
     outputs:
       - data/tagged/relationships_tagged.jsonl
+    notes: Simpler than `clustered_matcher_ui_v3.py`, but faster for linear review.
 
   - name: matcher_ui_v3.py
-    description: Newer, enhanced matcher UI with clustering and preview tools.
+    description: Enhanced matcher UI with batch processing and similarity scoring
     inputs:
       - data/output/unmatched_phrases.txt
     outputs:
       - data/tagged/relationships_tagged.jsonl
+    notes: Integrates with the knowledge graph pipeline more directly.
 
   - name: score_and_cluster_phrases.py
-    description: Clusters unmatched phrases using semantic similarity scoring.
+    description: Vectorize and cluster unmatched phrases based on semantic similarity
     inputs:
       - data/output/unmatched_phrases.txt
     outputs:
       - internal memory (clusters fed to matcher tools)
+    notes: Prepares data for matcher UIs by grouping similar sentence structures.
 
   - name: tag_index_builder.py
-    description: Builds tag index for navigating tagged relationships.
+    description: Index tagged relationships by category and source for fast lookup
     inputs:
       - data/tagged/relationships_tagged.jsonl
     outputs:
       - config/tags_index.json
 
   - name: tag_index_viewer_v3.py
-    description: UI for browsing and filtering the tag index.
+    description: Interactive viewer for tag index with relationship summaries
     inputs:
       - config/tags_index.json
+    outputs: []
+
+  - name: cleanup_freeimperia.py
+    description: Moves unused or deprecated tools, text files, or temporary scripts to backup directory
+    inputs: []
+    outputs:
+      - backup_unused/
+
+  - name: cleanup_data_files.py
+    description: Deletes outdated or temporary data files (e.g., backups, test folders)
+    inputs:
+      - data/output/*
+      - data/tagged/*
+    outputs: []
 
   - name: test2.py
-    description: QA script to spot-check relationships in the latest relationship file.
+    description: Diagnostic script to test extraction of specific relationship types
     inputs:
       - data/output/relationships.jsonl
+    outputs: [stdout]
+
+  - name: generate_config_indexes.py
+    description: Indexes all config and relationship files to track dependencies and reduce memory risk
+    inputs:
+      - config/
+    outputs:
+      - config/config_index.yaml

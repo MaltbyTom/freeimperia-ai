@@ -1,0 +1,38 @@
+# config/memory_management_plan.yaml
+
+plan_title: "Unified Memory Management & Overflow Protection Strategy"
+version: 1.0
+author: AI & Tom Maltby
+last_updated: 2025-04-15
+
+phases:
+  - phase: Phase 1 — Light Memory System + Headers
+    components:
+      - name: memory_status.py
+        role: Tracks memory usage, warnings, active files; adds per-response headers
+        status: to_be_implemented
+      - name: sectional_loader.py
+        role: Safely load large files in chunks; validates memory before loading
+        status: to_be_implemented
+      - name: boot_enforcer.py
+        role: Requires boot confirmation and loads core_ruleset.yaml; blocks risky behavior
+        status: to_be_implemented
+
+  - phase: Phase 2 — Rule Enforcement & Validation
+    components:
+      - name: rule_validator.py
+        role: Checks rules.yaml changes against canonical version; flags shrinkage or key loss
+        status: to_be_implemented
+
+  - phase: Phase 3 — Integrated Future Behavior
+    enforcement:
+      - All config generators must use memory_status.py and sectional_loader.py
+      - All memory thresholds must be validated prior to file access
+      - Long files must be processed with sectional_loader to avoid overflow
+      - All config changes must trigger rule_validator prior to acceptance
+
+usage_guidelines:
+  - Always call memory_status before high-memory actions
+  - Use sectional_loader for any file larger than 500 KB
+  - Confirm memory-safe conditions before toolchain chains
+  - Avoid >3 config/data files in memory at once
