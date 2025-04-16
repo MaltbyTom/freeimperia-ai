@@ -1,91 +1,104 @@
-# tools_registry.yaml
+# tools_registry.yaml — Registered Tools and Data Flows
 
 tools:
-  - name: apply_relationship_patterns.py
-    description: Apply pattern-matching relationships to wiki_pages.json using relationships.yaml
+
+  - name: wiki_relationship_extractor_utf8.py
+    description: Parses wiki text files and extracts potential relationships for pattern matching.
     inputs:
-      - config/relationships.yaml
       - data/output/wiki_pages.json
+    outputs:
+      - data/output/unmatched_phrases.txt
+    tags: [extract, wiki, relationships]
+
+  - name: apply_relationship_patterns.py
+    description: Matches extracted phrases against known patterns and writes matched relationships.
+    inputs:
+      - data/output/wiki_pages.json
+      - config/relationships.yaml
     outputs:
       - data/output/relationships.jsonl
       - data/output/unmatched_phrases.txt
-    notes: Uses semantic and pattern-based matching to extract structured relationships from wiki text.
+    tags: [match, patterns, relationships]
+
+  - name: score_and_cluster_phrases.py
+    description: Clusters unmatched phrases by semantic similarity for UI-based tagging.
+    inputs:
+      - data/output/unmatched_phrases.txt
+    outputs: []
+    tags: [cluster, score, phrases]
+
+  - name: clustered_matcher_ui_v3.py
+    description: UI for browsing and tagging clusters of unmatched phrases interactively.
+    inputs:
+      - data/output/unmatched_phrases.txt
+    outputs:
+      - data/tagged/relationships_tagged.jsonl
+    tags: [UI, cluster, tagging]
+
+  - name: matcher_ui_v2.py
+    description: Alternate tagging UI for unmatched phrases (single-line view).
+    inputs:
+      - data/output/unmatched_phrases.txt
+    outputs:
+      - data/tagged/relationships_tagged.jsonl
+    tags: [UI, tagging]
+
+  - name: matcher_ui_v3.py
+    description: Alternate tagging UI with added preview and batch export.
+    inputs:
+      - data/output/unmatched_phrases.txt
+    outputs:
+      - data/tagged/relationships_tagged.jsonl
+    tags: [UI, tagging]
+
+  - name: tag_index_builder.py
+    description: Builds an index of relationships from tagged clusters to speed up lookup.
+    inputs:
+      - data/tagged/relationships_tagged.jsonl
+    outputs:
+      - config/tags_index.json
+    tags: [index, tags]
+
+  - name: tag_index_viewer_v3.py
+    description: Displays tag index and provides insights into matched clusters.
+    inputs:
+      - config/tags_index.json
+    outputs: []
+    tags: [index, UI, insights]
 
   - name: jsonl_to_graph.py
-    description: Convert extracted relationships JSONL into a GraphJSON structure for visualization
+    description: Converts cleaned relationships into graph JSON format for visualization.
     inputs:
       - data/output/relationships.jsonl
     outputs:
       - data/output/graph_data.json
-    notes: Can be modified to handle tags or support filtering by relationship type.
-
-  - name: clustered_matcher_ui_v3.py
-    description: Interactive UI to cluster and tag unmatched phrases from semantic extraction
-    inputs:
-      - data/output/unmatched_phrases.txt
-    outputs:
-      - data/tagged/relationships_tagged.jsonl
-    notes: Supports cluster preview, tag auto-suggestions, YAML/JSONL export.
-
-  - name: matcher_ui_v2.py
-    description: Lightweight UI for manually matching relationships from raw phrase data
-    inputs:
-      - data/output/unmatched_phrases.txt
-    outputs:
-      - data/tagged/relationships_tagged.jsonl
-    notes: Simpler than `clustered_matcher_ui_v3.py`, but faster for linear review.
-
-  - name: matcher_ui_v3.py
-    description: Enhanced matcher UI with batch processing and similarity scoring
-    inputs:
-      - data/output/unmatched_phrases.txt
-    outputs:
-      - data/tagged/relationships_tagged.jsonl
-    notes: Integrates with the knowledge graph pipeline more directly.
-
-  - name: score_and_cluster_phrases.py
-    description: Vectorize and cluster unmatched phrases based on semantic similarity
-    inputs:
-      - data/output/unmatched_phrases.txt
-    outputs:
-      - internal memory (clusters fed to matcher tools)
-    notes: Prepares data for matcher UIs by grouping similar sentence structures.
-
-  - name: tag_index_builder.py
-    description: Index tagged relationships by category and source for fast lookup
-    inputs:
-      - data/tagged/relationships_tagged.jsonl
-    outputs:
-      - config/tags_index.json
-
-  - name: tag_index_viewer_v3.py
-    description: Interactive viewer for tag index with relationship summaries
-    inputs:
-      - config/tags_index.json
-    outputs: []
-
-  - name: cleanup_freeimperia.py
-    description: Moves unused or deprecated tools, text files, or temporary scripts to backup directory
-    inputs: []
-    outputs:
-      - backup_unused/
-
-  - name: cleanup_data_files.py
-    description: Deletes outdated or temporary data files (e.g., backups, test folders)
-    inputs:
-      - data/output/*
-      - data/tagged/*
-    outputs: []
+    tags: [convert, graph, json]
 
   - name: test2.py
-    description: Diagnostic script to test extraction of specific relationship types
+    description: Test harness to search relationships.jsonl for specific patterns like "is noble house".
     inputs:
       - data/output/relationships.jsonl
-    outputs: [stdout]
+    outputs: []
+    tags: [test, debug]
+
+  - name: cleanup_freeimperia.py
+    description: Moves unused or legacy files into backup_unused folder.
+    inputs: []
+    outputs: [backup_unused/]
+    tags: [maintenance, cleanup]
+
+  - name: cleanup_data_files.py
+    description: Cleans up unneeded or deprecated data files after each pipeline pass.
+    inputs: []
+    outputs: []
+    tags: [maintenance, cleanup]
 
   - name: generate_config_indexes.py
-    description: Indexes all config and relationship files to track dependencies and reduce memory risk
+    description: Indexes all config files, data file flows, and rules into a single metadata file.
     inputs:
-      - config/
+      - config/rules.yaml
+      - config/project_structure.yaml
+      - config/world_lore_reference.yaml
     outputs:
       - config/config_index.yaml
+    tags: [meta, config, rules]
