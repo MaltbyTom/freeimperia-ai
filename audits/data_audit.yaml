@@ -1,0 +1,75 @@
+data_files:
+  - path: output/wiki_pages.json
+    description: Dump of all wiki page content
+    status: used
+    used_by:
+      - apply_relationship_patterns.py
+      - wiki_relationship_extractor_utf8.py
+
+  - path: output/relationships.jsonl
+    description: All extracted and pattern-matched relationships
+    status: used
+    used_by:
+      - jsonl_to_graph.py
+      - test2.py
+      - matcher_ui_v3.py
+
+  - path: output/unmatched_phrases.txt
+    description: Phrases that did not match patterns
+    status: used (review only)
+    used_by: []
+
+  - path: output/wiki_pages_backup.json
+    description: Backup or legacy copy of wiki pages
+    status: unused
+
+  - path: output/graph_data.json
+    description: Final graph export (nodes + edges)
+    status: used
+    used_by:
+      - visualization
+      - future web output
+
+  - path: output/test/
+    description: Empty output test directory
+    status: unused
+
+  - path: tagged/relationships_tagged.jsonl
+    description: Human-tagged relationships
+    status: used (cleanup)
+    used_by:
+      - matcher_ui_v3.py
+
+  - path: tagged/relationships_expanded.yaml
+    description: Flattened expansion of relationship patterns
+    status: used
+    used_by:
+      - apply_relationship_patterns.py
+
+  - path: tagged/relationships_expanded_backup.yaml
+    description: Manual backup
+    status: optional
+
+  - path: tagged/relationships_expanded backup2.yaml
+    description: Manual backup
+    status: optional
+
+  - path: tagged/skipped_clusters.txt
+    description: Skipped clusters from an older tool version
+    status: unused
+
+  - path: config/config.py
+    description: Central config file with paths and constants
+    status: used
+
+  - path: config/rules.yaml
+    description: Memory, safety, and behavior rules
+    status: used
+
+  - path: config/lore.yaml
+    description: Worldbuilding reference file
+    status: used (as needed)
+
+  - path: config/project_structure.yaml
+    description: Tool ↔ file registry
+    status: used
