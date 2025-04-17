@@ -1,0 +1,112 @@
+# nobles_registry.yaml
+
+imperial_house:
+  - name: Aragithalas Sercenornorow Kanan
+    title: Emperor of the Free Imperia
+    consort: Laurana Kanan
+    children:
+      - Ambery Kanan
+      - Aaron Bloodrunner
+    fealty: none
+    vassals:
+      - Thalion Paurgiliath (ArchDuke of Eltan)
+      - King Cormach
+      - King Gilthanas
+      - ArchDuke Wings Xavior III
+      - Lord Gunthar uth Wistan
+      - The Three Kings of the Dwarves
+      - Baron Tranth
+      - Prince Brendian Erendyl
+      - Duchess St. Karlon
+      - Count Volsung (Crom Thorson)
+      - Lord Iemochi Tokugawa
+      - Lord Peron
+      - Lady Snodgrass
+      - Baron von Maxxin
+      - Baroness Faith De Vengence
+      - Lady Baroness Banti Vallenwood
+      - Roy Sandridge
+      - Chieftain Daley MacBrock
+
+duchy_eltan:
+  - name: Thalion Paurgiliath
+    title: ArchDuke of Eltan, Protector of the Harnic Elves
+    consort: Dame Lidia Vie (former princess of Harn)
+    vassals:
+      - Lady Vana (Vanaheim & Morninghold)
+      - Lord Raza Vie (Vieburgh)
+      - Lord Ezzah (Ezzaheim)
+      - Baroness Malinde & Dame Gerdie (Witcheim)
+
+free_kingdom_of_harnia:
+  - name: King Cormach
+    title: King of Harnic Humans
+    vassals:
+      - Duke Rocha
+      - Baron Munchausen
+      - (suburban holdings in Cormachia)
+
+duchy_stronghold:
+  - name: Duke Rocha
+    title: Duke of Stronghold
+    vassals:
+      - various (to be filled later)
+
+barony_munchausen:
+  - name: Baron Munchausen
+    title: Baron
+    vassals: []
+
+elven_lords:
+  - name: Gilthanas Kanan
+    title: King of the Elflands, Speaker of the Sun and Moon
+    consort: none (cannot bear children)
+    relatives:
+      - Laurana Kanan (sister, Empress)
+      - Alhana Starbreeze (sister-in-law)
+      - Silvanoshei Kanan (nephew, heir)
+    vassals:
+      - Princess Tashari (Dargonesti)
+      - Countess Iyesta
+      - Lord Dralathas
+      - Dallatar Kerianseray (White Eagle Clan)
+
+norse_allied:
+  - name: Crom Thorson
+    title: Count Volsung, Lord Marshal
+    city: Vesterhelm
+    religion: Norse (worshipper of Sif)
+    imperial_role: Law enforcement
+    vassals: []
+
+krynnic_order:
+  - name: Lord Gunthar uth Wistan
+    title: Lord of Solamnia
+    vassals:
+      - Knights of the Solamnic Orders
+
+western_allies:
+  - name: Prince Brendian Erendyl
+    title: Prince of Alfheim (Mystara)
+    domain: Black Rock (Westmark)
+    vassals:
+      - Princess Rukmini (court guest)
+
+dwarven_kings:
+  - name: The Three Kings of the Dwarves
+    vassals:
+      - Queen Mother Gloven
+      - Prince Burn
+      - Duke Vagan Steelfist
+      - Count Firo Forge Binder
+      - Lord Baron Darnell Iron Breaker
+      - Thane Smash (Argentum Capita)
+
+council_of_clans:
+  - name: Chieftain Daley MacBrock
+  - name: Dallatar Kerianseray (vassal of Gilthanas)
+
+other_nobles:
+  - name: Baron Tranth
+    domain: Barony Tranth
+    allegiance: Emperor
