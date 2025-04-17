@@ -1,0 +1,49 @@
+imperial_military:
+  prefix: IM
+  description: Imperial forts, staging points, and castles
+  examples:
+    - IM#1 - Safehold Pass Watchtower
+    - IM#2 - Westwall Bastion
+    - IM#3 - Dragonknight Garrison
+
+imperial_navy:
+  prefix: IN
+  description: Ports, sea forts, and island bases used by the Navy
+  total: 42
+  known_examples:
+    - IN#2 - Kadar Abar-narik, Citadel of Iron Eagles
+    - IN#12 - Breakwater Bastion
+    - IN#37 - Southern Trident
+
+peacekeepers:
+  prefix: PK
+  description: Forts and villages operated by Paurgiliath Peacekeepers
+  total: 6
+  known_examples:
+    - PK#1 - Violet Pines Watch
+    - PK#3 - Borderbridge Keep
+
+rainbow_barbarians:
+  prefix: RB
+  description: Sacred sites and forts of the Seven Tribes
+  known_examples:
+    - RB#1 - Circle of Stars
+    - RB#2 - Hill of Gathering
+
+church_of_eru:
+  prefix: CE
+  known_examples:
+    - CE#1 - Hall of Witnesses
+
+odin_folk:
+  prefix: OF
+  known_examples:
+    - OF#1 - Skeld's Hall
+    - OF#2 - Fort Hrolf
+
+trading_company:
+  prefix: TC
+  known_examples:
+    - TC#1 - West Arda Trade Hall
+    - TC#2 - Freeport Annex
+
