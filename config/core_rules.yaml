@@ -18,3 +18,5 @@ validation:
 permissions:
   allow_user_push_only: true
   deny_self_push: true
+display:
+  reassert_diagnostics_post_tool_exec: true
