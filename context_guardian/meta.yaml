@@ -1,0 +1,21 @@
+project: Context Guardian
+version: 0.1-dev
+status: experimental
+parent_project: freeimperia-ai
+origin_use_case: AI-assisted D&D 2E wiki analysis
+core_files:
+  - context_guardian/core_ruleset.yaml
+  - context_guardian/memory_status.py
+  - context_guardian/config_index.yaml
+  - context_guardian/memory_management_plan.yaml
+expected_host_projects:
+  - config-heavy AI projects
+  - NLP pipelines
+  - Memory-sensitive tool orchestration
+compatibility:
+  models: [GPT-4, Claude, Mistral, Open-Source LLMs]
+  platforms: [local dev, GitHub, web-backed memory storage]
+contributors:
+  - fnord (primary integrator & architect)
+license: MIT
+
