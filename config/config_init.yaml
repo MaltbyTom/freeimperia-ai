@@ -1,0 +1,4 @@
+on_memory_reset:
+  - validate_source_lock
+  - set_branch_to: dev
+  - run_boot_sequence: true
