@@ -1,0 +1,16 @@
+boot_checks:
+  - ensure_rules_loaded: true
+  - ensure_index_registry: true
+  - enforce_pre_reply_rule_consultation: true
+
+bindings:
+  dev_mode_display_basics:
+    active: true
+    trigger_on: boot
+  query_rules_before_reply:
+    active: true
+    source_files:
+      - config/core_rules.yaml
+      - config/rules.yaml
+
+index_registry: context_guardian/index_registry.yaml

@@ -1,0 +1,8 @@
+# Canonical index of queryable resources
+lore_index: config/lore.yaml
+rules_index: config/rules.yaml
+core_rules_index: config/core_rules.yaml
+wiki_graph_index: data/output/wiki_graph.json
+lore_extracted_index: data/tagged/lore_extracted.jsonl
+faction_profiles_index: data/tagged/faction_profiles.json
+divine_profiles_index: data/tagged/divine_profiles.json
