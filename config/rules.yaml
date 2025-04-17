@@ -1,40 +1,8 @@
-# rules.yaml — Project Workflow & Reference Standards (Soft Ruleset)
+general:
+  memory_query_before_comm: true
+  canonical_file_source: dev
+  boot_sequence_required: true
 
-includes:
-  - config/core_ruleset.yaml
-
-tool-behavior:
-  require_tools_registry_update: true
-  require_project_structure_update: true
-  require_audit_md_for_tooling: true
-  audit_outputs_to: audits/
-
-file-usage-limits:
-  max_active_tools: 3
-  max_active_data_files: 3
-  handling_notes:
-    - "Load sequentially and unload when not required"
-    - "Summarize structure when context is limited"
-    - "Never re-load full project config into memory — use index"
-
-data-integrity:
-  require_explicit_file_comparison_before_overwrite: true
-  deny_update_if_smaller_without_warning: true
-  confirm_consistency_with_canonical_branch: true
-
-update-safety:
-  prompt_on_rule_change: true
-  never_delete_reference_files_unless_commanded: true
-  always_log_rule_changes_to_audit: true
-
-behavior-disciplines:
-  validate_file_structure_before_pathing: true
-  prefer_relative_paths: true
-  never_output_links_to_unsaved_code: true
-  warn_if_chat_response_implies_file_state incorrectly
-
-user-interface:
-  markdown_output: true
-  yaml_output: true
-  json_output: true
-  must_include_description_comments: true
+file_handling:
+  check_file_exists_first: true
+  push_offered_by_user_only: true

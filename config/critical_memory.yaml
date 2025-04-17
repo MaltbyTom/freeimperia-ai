@@ -1,25 +1,2 @@
-# /config/critical_memory.yaml
-
-session_state:
-  canonical_branch: dev
-  current_mode: dev
-  source_domain: www.freeimperia.com
-  memory_guard_enabled: true
-  diagnostics_rule: dev_mode_display_basics
-  diagnostics_enabled: true
-  display_fields:
-    - timestamp
-    - memory_status
-    - boot_mode
-    - canonical_branch
-    - memory_slots_used
-    - active_docs
-  saved_memory_full: true
-  boot_trigger: true
-  current_focus:
-    - Free Imperia AI Toolkit
-    - Knowledge graphing of worldbuilding wiki content
-    - Use of dev branch as canonical
-    - Rule audit of rules.yaml and core_rules.yaml
-    - Live wiki source: https://www.freeimperia.com/fiwiki
-    - Temporary external memory override: critical_memory.yaml
+# Optional critical memory state for backup during reset
+# Should not be relied upon in normal operation

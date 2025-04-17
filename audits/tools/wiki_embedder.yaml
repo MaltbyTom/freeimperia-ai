@@ -1,0 +1,5 @@
+tool: wiki_embedder.py
+location: tools/wiki_embedder.py
+status: undocumented
+action_required: True
+description: Auto-generated placeholder audit for an undocumented tool.

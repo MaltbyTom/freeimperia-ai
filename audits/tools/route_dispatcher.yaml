@@ -1,0 +1,5 @@
+tool: route_dispatcher.py
+location: tools/route_dispatcher.py
+status: undocumented
+action_required: True
+description: Auto-generated placeholder audit for an undocumented tool.

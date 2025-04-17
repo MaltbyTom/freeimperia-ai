@@ -1,0 +1,6 @@
+data_asset: people_graph.json
+location: data/output/people_graph.json
+type: graph output
+status: undocumented
+action_required: True
+description: Auto-generated placeholder audit for a data file.

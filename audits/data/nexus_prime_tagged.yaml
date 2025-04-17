@@ -1,0 +1,6 @@
+data_asset: nexus_prime_tagged.jsonl
+location: data/tagged/nexus_prime_tagged.jsonl
+type: tagged content
+status: undocumented
+action_required: True
+description: Auto-generated placeholder audit for a data file.

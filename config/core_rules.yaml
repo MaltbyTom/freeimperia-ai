@@ -1,0 +1,20 @@
+memory_management:
+  auto_clear_unused: true
+  preserve_critical_memory: false
+  max_active_files: 20
+
+boot:
+  run_on_startup:
+    - context_guardian
+    - dev_mode_display_basics
+
+rehydration:
+  post_rehydrate_execute:
+    - dev_mode_display_basics
+
+validation:
+  require_rule_check_before_comm: true
+
+permissions:
+  allow_user_push_only: true
+  deny_self_push: true

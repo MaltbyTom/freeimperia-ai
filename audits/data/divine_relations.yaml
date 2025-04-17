@@ -1,0 +1,6 @@
+data_asset: divine_relations.graphml
+location: data/output/divine_relations.graphml
+type: graph output
+status: undocumented
+action_required: True
+description: Auto-generated placeholder audit for a data file.

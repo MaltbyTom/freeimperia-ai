@@ -1,0 +1,10 @@
+modules:
+  - name: memory_limiter
+    active: true
+  - name: lore_defer_index
+    active: true
+
+behavior:
+  access_lore_on_demand: true
+  protect_memory_bounds: true
+  audit_every_boot: true

@@ -1,0 +1,5 @@
+tool: graph_suggester.py
+location: tools/graph_suggester.py
+status: undocumented
+action_required: True
+description: Auto-generated placeholder audit for an undocumented tool.
