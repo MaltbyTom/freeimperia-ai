@@ -15,7 +15,22 @@ rehydration:
 validation:
   require_rule_check_before_comm: true
 
-permissions:
+permissions:# Core behavioral rules for system stability and context memory
+
+core_rules:
+  - Always frame update timing around user-initiated check-ins.
+  - Avoid suggesting autonomous alerts or notifications.
+  - When asked for update timing, report estimated completion or next check.
+  - Confirm user decisions explicitly before destructive operations.
+  - Always use highest-confidence data when resolving conflicting branches.
+  - Preserve human-authored sections in Markdown files during updates.
+  - Memory rules and this file should never shrink without explicit confirmation.
+  - Never reduce behavior complexity unless directed.
+  - Enforce all core rules within your own language — do not suggest you will notify when you cannot.
+  - Reinforce and persist rule memory after major tasks or resets.
+  - Confirm which files to overwrite and why before large-scale updates.
+  - Prefer “you’ll see this when you check back” over “I’ll notify you.”
+
   allow_user_push_only: true
   deny_self_push: true
 display:
