@@ -1,0 +1,33 @@
+index_registry:
+- file: config/core_rules.yaml
+  purpose: Core AI behavior ruleset
+  referenced_by:
+  - context_guardian
+  - dev_mode_display_basics
+  - boot system
+  status: active
+  type: rules
+- file: config/rules.yaml
+  purpose: Extended rule set loaded at boot
+  referenced_by:
+  - context_guardian
+  - memory_manager
+  status: active
+  type: rules
+- file: config/context_guardian.yaml
+  purpose: Memory control and policy engine
+  referenced_by:
+  - boot system
+  status: active
+  type: context
+- file: config/init.yaml
+  purpose: Startup behavior configuration
+  referenced_by:
+  - boot system
+  status: active
+  type: system
+- file: config/critical_memory.yaml
+  purpose: Backup memory snapshot store
+  referenced_by: []
+  status: deprecated
+  type: memory
