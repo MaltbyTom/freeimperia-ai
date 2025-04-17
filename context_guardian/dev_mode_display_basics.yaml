@@ -1,0 +1,25 @@
+rule_id: dev_mode_display_basics
+description: >
+  Always display a diagnostic panel at the top of every response in Dev Mode.
+  Includes memory status, current branch, timestamp, and restrictions.
+trigger_conditions:
+  - boot_mode: dev
+  - context_guard_enabled: true
+display_fields:
+  - timestamp_utc
+  - timestamp_local
+  - memory_mode_status
+  - memory_slot_usage
+  - active_documents_count
+  - boot_mode_enabled
+  - canonical_branch
+  - source_restriction_summary
+enforcement:
+  always_prepend: true
+  fail_safe: >
+    If display fails, retry once. If it still fails, use fallback text format.
+fallback_text_template: >
+  [🕒 {timestamp_utc} | 🕰️ Local: {timestamp_local}]
+  [🧠 {memory_mode_status}] [📦 {memory_slot_usage}] [📄 Docs: {active_documents_count}]
+  [🚀 Boot Mode: ENABLED] [🌿 Canonical Branch: {canonical_branch}]
+  [🔒 Source: {source_restriction_summary}]
