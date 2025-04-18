@@ -54,7 +54,7 @@ def build_boot_prompt():
             lines.append(f"- https://freeimperia.com/ai-cache/main/{path}")
 
     lines.append("\n" + FOOTER.strip())
-    BOOT_PROMPT_OUT.write_text("\n".join(lines))
+    BOOT_PROMPT_OUT.write_text("\n".join(lines), encoding="utf-8")
     print("✅ Boot prompt generated as boot_prompt.txt")
 
 if __name__ == "__main__":

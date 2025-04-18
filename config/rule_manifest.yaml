@@ -1,0 +1,38 @@
+version: 1.0
+
+# --- HARDCORE BOOT LAYER ---
+load_order:
+  - config/core_rules.yaml
+  - config/behavior_rules.yaml
+  - config/system_behavior.yaml
+
+# --- ALWAYS LOAD FOR MEMORY SAFETY ---
+memory_controls:
+  - config/memory_anchors.yaml
+  - config/context_guardian.yaml
+  - config/critical_memory.yaml
+  - config/memory_management_plan.yaml
+
+# --- HUMAN INTENT DOCUMENTATION (load last, passive) ---
+human_docs:
+  - config/behavior_rules.md
+  - config/system_behavior.md
+
+# --- WORLD STATE LAYERS (can be toggled) ---
+data_sources:
+  - config/city_registry.yaml
+  - config/nobles_registry.yaml
+  - config/outposts_registry.yaml
+  - config/outposts_registry_questionable.yaml
+  - config/tools_registry.yaml
+  - config/file_registry.yaml
+  - config/index_registry.yaml
+
+# --- SESSION INJECTION (must load last) ---
+memory_init:
+  - config/session_start.md
+  - config/memory_init.md
+
+# --- PERSISTENCE CACHE HOOK ---
+persisted_memory:
+  - https://freeimperia.com/ai-cache/main/dev_boot_anchor.md
