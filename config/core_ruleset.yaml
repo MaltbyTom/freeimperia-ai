@@ -1,0 +1,42 @@
+# core_ruleset.yaml — Critical AI Memory and Safety Protocols
+
+memory-budget:
+  max_files_in_memory: 3
+  max_documents_total: 100
+  warning_threshold: 90
+  action_on_overflow: summarize_or_offload
+
+promise-integrity:
+  never_fake_save: true
+  never_claim_push: true
+  never_imply_write_access: true
+  required_output_behavior: "Show full content or downloadable copy unless user confirms save."
+
+boot-requirements:
+  require_first_prompt_confirmation: true
+  allowed_first_prompts:
+    - "!boot"
+    - "🛡️ SYSTEM BOOTSTRAP"
+  reject_action_if_boot_not_confirmed: true
+
+reference-files:
+  - config/project_structure.yaml
+  - config/tools_registry.yaml
+  - config/world_lore_reference.yaml
+  - config/rules.yaml
+  - config/core_ruleset.yaml
+
+format-discipline:
+  enforce_consistent_indentation: true
+  remove_trailing_whitespace: true
+  prefer_snake_or_kebab_case_keys: true
+  avoid_duplicate_keys: true
+
+memory-monitor:
+  warn_if_exceeds:
+    documents: 100
+    yaml_json_files: 5
+  mitigation:
+    - unload_prior_context
+    - prompt_user_for_refocus
+    - use_reference_files_only

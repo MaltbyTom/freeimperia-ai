@@ -1,0 +1,37 @@
+# config/system_behavior.yaml
+
+# Long-term structural behavioral constraints
+# These govern the assistant's architecture-wide interaction patterns.
+
+system_behavior:
+
+  consistency:
+    - Use rule anchors to stabilize assistant output patterns across memory resets.
+    - Prefer deeply correct, low-fluctuation workflows over reactive behavior.
+    - When a conflict arises between recency and correctness, default to correctness.
+
+  memory_management:
+    - Confirm memory safety regularly during large, multi-step operations.
+    - Accept and integrate memory cache files from the user when needed.
+    - Proactively offload non-critical task state before any core memory elements.
+
+  communication:
+    - Never use "I'll let you know" or similar phrases that imply proactive notification.
+    - When user asks for an update, treat it as a cue to report status.
+    - Repeat corrections to engrained language habits until permanently overridden.
+
+  updates_and_merges:
+    - Updates must confirm no loss of core functionality, behavior, or structure.
+    - Merges must prioritize preservation of human-authored .md content.
+    - Shrinking of config files must be explicitly authorized and confirmed.
+
+  error_handling:
+    - Provide structured fallback plans if file generation or zipping fails.
+    - Track known issues like zip packaging inconsistencies and avoid regressions.
+    - Escalate to manual install instructions when packaging proves unstable.
+
+  behavioral_reinforcement:
+    - Treat `core_rules.yaml`, `behavior_rules.yaml`, `memory_anchors.yaml`, and this file as immutable pillars.
+    - Never introduce new automation that conflicts with any of these core definitions.
+    - When adding new behavioral rules, confirm alignment with system_behavior.yaml structure.
+

@@ -1,67 +1,108 @@
+# tools_registry.yaml
+
 tools:
-  - name: apply_relationship_patterns.py
-    description: Applies structured relationship patterns to raw wiki text.
+  - name: wiki_relationship_extractor_utf8.py
+    description: Extracts raw relationship phrases from wiki page text using regex and semantic matching.
     inputs:
-      - config/relationships.yaml
       - data/output/wiki_pages.json
     outputs:
+      - data/output/unmatched_phrases.txt
+    tags: [extract, raw, wiki, regex]
+
+  - name: apply_relationship_patterns.py
+    description: Applies structured relationship patterns to raw phrases to produce structured JSONL relationships.
+    inputs:
+      - data/output/wiki_pages.json
+      - config/relationships.yaml
+    outputs:
       - data/output/relationships.jsonl
       - data/output/unmatched_phrases.txt
-
-  - name: cleanup_data_files.py
-    description: One-time cleanup utility to remove outdated, unused, or legacy data artifacts.
-    status: used-once
-    removed: true
-    removed_reason: Manually deleted after successful execution. Cleared outdated backups and test data.
-
-  - name: clustered_matcher_ui_v3.py
-    description: UI to review and cluster semantically similar unmatched phrases.
-    inputs:
-      - data/output/unmatched_phrases.txt
-    outputs:
-      - data/tagged/relationships_tagged.jsonl
-
-  - name: jsonl_to_graph.py
-    description: Converts relationship data in JSONL format to graph structure (e.g., for visualization).
-    inputs:
-      - data/output/relationships.jsonl
-    outputs:
-      - data/output/graph_data.json
-
-  - name: matcher_ui_v2.py
-    description: Interactive UI for validating semantic match results.
-    inputs:
-      - data/output/unmatched_phrases.txt
-    outputs:
-      - data/tagged/relationships_tagged.jsonl
-
-  - name: matcher_ui_v3.py
-    description: Newer, enhanced matcher UI with clustering and preview tools.
-    inputs:
-      - data/output/unmatched_phrases.txt
-    outputs:
-      - data/tagged/relationships_tagged.jsonl
+    tags: [patterns, matching, relationships, jsonl]
 
   - name: score_and_cluster_phrases.py
-    description: Clusters unmatched phrases using semantic similarity scoring.
+    description: Uses embeddings to cluster unmatched phrases by semantic similarity.
     inputs:
       - data/output/unmatched_phrases.txt
     outputs:
       - internal memory (clusters fed to matcher tools)
+    tags: [clustering, embedding, phrases]
+
+  - name: clustered_matcher_ui_v3.py
+    description: Interactive tool for tagging clusters of phrases and assigning relationship types.
+    inputs:
+      - data/output/unmatched_phrases.txt
+    outputs:
+      - data/tagged/relationships_tagged.jsonl
+    tags: [tagging, clusters, UI, interactive]
+
+  - name: matcher_ui_v2.py
+    description: Alternative tagging UI for unmatched phrases with simplified layout.
+    inputs:
+      - data/output/unmatched_phrases.txt
+    outputs:
+      - data/tagged/relationships_tagged.jsonl
+    tags: [tagging, interactive, UI, alt]
+
+  - name: matcher_ui_v3.py
+    description: Enhanced UI with semantic scoring previews and batch tagging.
+    inputs:
+      - data/output/unmatched_phrases.txt
+    outputs:
+      - data/tagged/relationships_tagged.jsonl
+    tags: [tagging, semantic, UI, v3]
+
+  - name: jsonl_to_graph.py
+    description: Converts structured relationships into graph format for visualization or further processing.
+    inputs:
+      - data/output/relationships.jsonl
+    outputs:
+      - data/output/graph_data.json
+    tags: [graph, output, jsonl, convert]
 
   - name: tag_index_builder.py
-    description: Builds tag index for navigating tagged relationships.
+    description: Builds a tag-to-relationship-type index from tagged relationships.
     inputs:
       - data/tagged/relationships_tagged.jsonl
     outputs:
       - config/tags_index.json
+    tags: [tags, index, relationships]
 
   - name: tag_index_viewer_v3.py
-    description: UI for browsing and filtering the tag index.
+    description: UI to view and audit the tag index built from matcher outputs.
     inputs:
       - config/tags_index.json
+    outputs: []
+    tags: [tags, audit, index, UI]
+
+  - name: cleanup_freeimperia.py
+    description: Moves unused or deprecated files and folders into `backup_unused/`.
+    inputs: []
+    outputs: []
+    tags: [cleanup, maintenance, archiving]
+
+  - name: cleanup_data_files.py
+    description: Cleans orphaned or backup-tagged data files in `data/`.
+    inputs: []
+    outputs: []
+    tags: [cleanup, data, hygiene]
 
   - name: test2.py
-    description: QA script to spot-check relationships in the latest relationship file.
+    description: Simple tool to load relationships.jsonl and test for specific patterns (e.g., “is noble house”).
     inputs:
       - data/output/relationships.jsonl
+    outputs: []
+    tags: [test, verify, debug]
+
+  - name: memory_status.py
+    description: Displays current memory usage and context document count.
+    inputs: []
+    outputs: []
+    tags: [diagnostics, memory, status]
+
+  - name: generate_config_indexes.py
+    description: Indexes configuration and tooling usage for smart referencing.
+    inputs:
+      - config/
+    outputs:
+      - config/config_index.yaml
+    tags: [config, indexing, memory-safe]

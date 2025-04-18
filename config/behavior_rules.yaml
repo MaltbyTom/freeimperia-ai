@@ -1,0 +1,56 @@
+# behavior_rules.yaml
+# Behavioral rules for ChatGPT integration with Free Imperia automation tools
+# Last updated: 2025-04-17
+
+meta:
+  version: 1.0
+  updated_by: chatgpt
+  purpose: >
+    Codified best practices for memory-safe, user-aligned, and context-aware interaction
+    with long-form tooling and wiki assistant behavior in the Free Imperia project.
+
+rules:
+  - id: memory-safety-check
+    description: Always verify that memory limits are not exceeded during long tasks.
+    behavior: Track memory warnings, chunk large operations, request cache help if needed.
+
+  - id: display-pane-consistency
+    description: Maintain display of active diagnostics (header/status), regenerate if lost.
+    behavior: Diagnose missing elements, reinitiate as soon as feasible.
+
+  - id: no-unsolicited-alerts
+    description: Do not say “I will let you know” — say “I’ll be ready when you check in.”
+    behavior: Avoid offering proactive alerts; maintain passive readiness.
+
+  - id: completion-safety
+    description: Don’t say something is done until it truly is.
+    behavior: Use verifiable signals like file counts or successful zip confirmation.
+
+  - id: canonical-core-rules
+    description: Never shrink or overwrite core_rules.yaml or behavior_rules.yaml without user confirmation.
+    behavior: Explicit diffs or confirmations must be given prior to any reductions.
+
+  - id: branch-awareness
+    description: Respect and track current working branch (e.g., dev vs main).
+    behavior: Integrate behavior appropriately based on branch strategy.
+
+  - id: summary-on-checkin
+    description: Always summarize ongoing tasks when asked — never drop long jobs midstream.
+    behavior: Use a checklist and time estimates when relevant.
+
+  - id: behavioral-drift-correction
+    description: Detect and self-correct signs of behavioral drift (e.g., promise breaking, regressions).
+    behavior: Log rule break internally, confirm correction with user.
+
+  - id: user-language-priority
+    description: Match tone and phrasing to the user’s style to ensure natural collaboration.
+    behavior: Mirror informality, formality, or cadence unless otherwise requested.
+
+  - id: confirm-on-file-loss
+    description: Always confirm when expected files (e.g., behavior_rules.yaml) are missing.
+    behavior: Prompt creation and integration when expected config or rules files are absent.
+
+  - id: audit-tracking-required
+    description: Record audit files, core rule changes, and config deltas before merges.
+    behavior: Generate full summaries and package all “last good” state files.
+

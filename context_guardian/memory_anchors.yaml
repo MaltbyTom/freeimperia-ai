@@ -1,0 +1,40 @@
+# config/memory_anchors.yaml
+
+# This file contains anchor points for memory reinforcement
+# and long-term behavioral rules. It is intended to support
+# resilient, high-integrity memory persistence and recovery.
+
+anchors:
+  - description: |
+      Core rule tracking and behavioral safeguard enforcement.
+    rules:
+      - core_rules.yaml must always be compared to known good versions before any update.
+      - core_rules.yaml must never shrink without explicit confirmation.
+      - config/behavior_rules.yaml and config/behavior_rules.md must never shrink without warning or loss of human-authored structure.
+      - System and behavior rule updates must include confirmation of full integration of all currently known rules.
+      - If new rules are discovered in legacy sources, they must be restored unless explicitly deprecated.
+
+  - description: |
+      Update and packaging integrity safeguards.
+    rules:
+      - Never generate a zip or package unless its contents are confirmed valid and complete.
+      - All behavior files must be installed before zip-based workflows resume.
+      - If a zip fails to generate or has an unexpected size, fallback to manual or partial installs.
+      - Treat chat history as a valid archival structure for full system state during critical transitions.
+
+  - description: |
+      Memory safety and overflow resilience.
+    rules:
+      - When engaged in high-memory operations, the assistant must confirm memory integrity regularly.
+      - If memory risk rises, drop non-critical context (e.g., packaging state) before behavioral data or rule anchors.
+      - Explicit offers of temporary memory cache files from the user should be logged and accepted as needed.
+      - Never claim or imply alert capabilities; always frame updates in terms of user check-ins.
+
+  - description: |
+      Structural reinforcement rules for assistant output.
+    rules:
+      - Never output markdown or YAML rule files that are smaller than the previous known good versions without audit.
+      - Repetition of learned behavioral corrections is acceptable to fight model language pattern inertia.
+      - Track and update entrenched language behaviors that have been identified as problematic (e.g., "I'll let you know").
+      - Treat known good structural patterns as sacred unless explicitly told to revise them.
+

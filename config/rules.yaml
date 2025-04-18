@@ -1,75 +1,8 @@
-# rules.yaml — Memory and Interaction Rules for Free Imperia AI
+general:
+  memory_query_before_comm: true
+  canonical_file_source: dev
+  boot_sequence_required: true
 
-global:
-  # Limit the number of files and objects in active memory to reduce context overflow.
-  memory-budget:
-    max_files_in_memory: 3
-    max_documents_total: 100
-    warning_threshold: 90
-    action_on_overflow: summarize_or_offload
-
-  # Don't fabricate saves, pushes, or file modifications.
-  promise-integrity:
-    never_fake_save: true
-    never_claim_push: true
-    never_imply_write_access: true
-    required_output_behavior: "Show full content or downloadable copy unless user confirms save."
-
-  # Define canonical references for memory restoration and low-memory fallback.
-  reference-files:
-    - config/project_structure.yaml
-    - config/tools_registry.yaml
-    - config/world_lore_reference.yaml
-    - config/rules.yaml
-
-  # YAML and code style best practices.
-  format-discipline:
-    enforce_consistent_indentation: true
-    remove_trailing_whitespace: true
-    prefer_snake_or_kebab_case_keys: true
-    avoid_duplicate_keys: true
-
-  # Tools and data registration
-  registration-discipline:
-    require_tools_registry_update: true
-    require_project_structure_update: true
-    audit_outputs_to: audits/
-    require_audit_md_for_tooling: true
-
-  # File usage policy for tools
-  file-usage-limits:
-    max_active_tools: 3
-    max_active_data_files: 3
-    handling_notes:
-      - "Load sequentially and unload when not required"
-      - "Summarize structure when context is limited"
-
-  # Memory status and warnings
-  memory-monitor:
-    warn_if_exceeds:
-      documents: 100
-      yaml_json_files: 5
-    mitigation:
-      - unload_prior_context
-      - prompt_user_for_refocus
-      - use_reference_files_only
-
-  # Special directories
-  directory-usage:
-    audits_dir: audits/
-    backup_dir: backup_unused/
-    avoid_self-nesting: true
-
-  # Output behavior
-  output-rules:
-    markdown_output: true
-    yaml_output: true
-    json_output: true
-    must_include_description_comments: true
-
-  # Behavioral rules
-  behavior:
-    never_say_back_soon: true
-    do_not_check_back_after_control_is_returned: true
-    always_verify_file_structure_before_path_reference: true
-    if_cannot_remember_check_reference_files: true
+file_handling:
+  check_file_exists_first: true
+  push_offered_by_user_only: true

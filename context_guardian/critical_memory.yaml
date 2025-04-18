@@ -1,0 +1,2 @@
+# Optional critical memory state for backup during reset
+# Should not be relied upon in normal operation

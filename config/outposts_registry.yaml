@@ -1,0 +1,49 @@
+imperial_military:
+  - id: IM#1
+    location: South of Nexus Prime
+    description: Strategic upland pass guarding route to South Valley
+  - id: IM#2
+    location: West of Micadonia
+    description: Mountain garrison
+
+imperial_navy:
+  - id: IN#1
+    location: River Kris estuary
+    description: Major port base on Southern Ocean
+  - id: IN#2
+    location: South of Jojojopo Peninsula
+    description: Old Numenorean capital harbor, Kadar Abar-Narik
+  - id: IN#3
+    location: Eastward coast
+    description: Dockyard & Lighthouse
+
+peacekeepers:
+  - id: PK#1
+    location: South Valley
+    description: Civic fortress tied to Paurgiliath Peacekeepers
+  - id: PK#2
+    location: Jojojopo interior
+    description: Outpost for orphanage-protected trade corridor
+
+west_arda_trading_company:
+  - id: TC#1
+    location: Westmark coast
+    description: Trade security post for merchant sea lanes
+
+odins_folk:
+  - id: OF#1
+    location: Vesterhelm road
+    description: Roaming warrior encampment
+  - id: OF#2
+    location: Dwarven highlands
+    description: Shield-brother bivouac near Iron Fist
+
+church_of_eru:
+  - id: CE#1
+    location: East coast
+    description: Lighthouse monastery
+
+rainbow_barbarians:
+  - id: RB#1
+    location: Mountains above South Valley
+    description: Tribal watchtower over sacred groves
